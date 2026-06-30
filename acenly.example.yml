@@ -1,0 +1,28 @@
+# ACENLY Bench — configuration
+# Copy this file to acenly.yml and edit to match your project.
+# Run: python3 bench.py --install-hooks   to add the git pre-push hook.
+
+benchmark:
+
+  # Functions to track on every push.
+  track:
+    - file: mymodule/utils.py
+      function: process_batch
+    # - file: mymodule/search.py
+    #   function: find_duplicates
+
+  # Regression thresholds.
+  # 0.10 = warn if median is 10% slower than last run.
+  # 0.25 = block push if median is 25% slower.
+  regression_warn:  0.10
+  regression_block: 0.25
+
+  # Minimum change to count as real (filters measurement noise).
+  noise_floor: 0.05
+
+  # When to run: pre-push | post-commit | manual
+  hook: pre-push
+
+  # Benchmark trials per function.
+  trials: 5
+  warmup: 2
